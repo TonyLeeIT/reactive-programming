@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.3'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'org.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '21'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    // mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    // https://mvnrepository.com/artifact/pro.chenggang/mybatis-r2dbc
+    //implementation group: 'pro.chenggang', name: 'mybatis-r2dbc', version: '1.2.5.RELEASE'
+
+    // r2dbc
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    // https://mvnrepository.com/artifact/org.postgresql/r2dbc-postgresql
+    implementation group: 'org.postgresql', name: 'r2dbc-postgresql', version: '1.0.4.RELEASE'
+    // mapstruct
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    /*liquibase*/
+    implementation 'org.liquibase:liquibase-core'
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    // postgres jdbc driver for liquibase
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
