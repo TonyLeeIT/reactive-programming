@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Use some logging configuration predefined by spring boot. For example: formatting pattern of logs. -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- Console -->
+    <appender name="console"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- WebSocket -->
+    <appender name="websocket"
+              class="org.example.reactiveprograming.configuration.WebSocketAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="SOCKET" class="ch.qos.logback.classic.net.SocketAppender">
+        <remoteHost>localhost</remoteHost> <!-- Remote host where logs will be sent -->
+        <port>5555</port> <!-- Port on the remote host -->
+        <reconnectionDelay>1000</reconnectionDelay> <!-- Optional: Reconnection delay in milliseconds -->
+        <!-- Other configuration options if needed -->
+    </appender>
+
+    <root level="TRACE">
+        <appender-ref ref="console"/>
+        <appender-ref ref="SOCKET"/> <!-- The logs will be output to the WebSocketAppender -->
+    </root>
+
+</configuration>
